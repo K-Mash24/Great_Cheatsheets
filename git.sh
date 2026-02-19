@@ -37,6 +37,11 @@ git restore .                     # Discard all local changes in working directo
 git restore --staged .            # Unstage all files
 got restore --staged <file>       # Unstage specific file
 
+# Push to Github
+git remote add origin https://github.com/K-Mash24/Great_Cheatsheets.git
+git branch -M "<branch-name>"
+git push -u origin "<branch-name>"
+
 # Branching
 git branch                        # List branches
 git branch <branch-name>          # Create new branch
