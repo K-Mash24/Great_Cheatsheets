@@ -1,139 +1,257 @@
-1. Document Structure
-   These tags set up the skeleton of your webpage.
+## 1. Document Structure
 
-<!DOCTYPE html>: Declares that the document is HTML5.
+> These tags set up the skeleton of your webpage.
 
-<html>: The root element that wraps all content.
+### <!DOCTYPE html>
 
-<head>: Contains background info (metadata) not visible to users.
+> Declares that the document is HTML5.
 
-<body>: Contains all the visible content (text, images, links).
+### <html>
 
-2. Text Formatting
-   Used to organize and style text.
+> The root element that wraps all content.
 
-<h1> to <h6>: Section headings (H1 is the largest).
+### <head>
 
-<p>: Defines a paragraph.
+> Contains background info (metadata) not visible to users.
 
-<b> / <strong>: Makes text bold (strong implies importance).
+### <body>
 
-<i> / <em>: Makes text italic (em implies emphasis).
+> Contains all the visible content (text, images, links).
 
-<br>: Inserts a line break.
+## 2. Text Formatting
 
-<hr>: Inserts a horizontal thematic line.
+> Used to organize and style text.
 
-3. Links and Media
-   Used to add interactivity and visuals.
+### <h1> to <h6>
 
-<a href="url">: Creates a clickable hyperlink.
+> Section headings (H1 is the largest).
 
-<img src="url">: Displays an image.
+### <p>
 
-<video>: Embeds a video player.
+> Defines a paragraph.
 
-<audio>: Embeds an audio player.
+### <b> / <strong>
 
-4. Lists
-   Used for grouping related items.
+> Makes text bold (strong implies importance).
 
-<ul>: Creates a bulleted (unordered) list.
+### <i> / <em>
 
-<ol>: Creates a numbered (ordered) list.
+> Makes text italic (em implies emphasis).
 
-<li>: Defines a single item inside a list.
+### <br>
 
-5. Tables
-   Used for displaying grid-based data.
+> Inserts a line break.
 
-<table>: The container for the table.
+### <hr>
 
-<tr>: A table row.
+> Inserts a horizontal thematic line.
 
-<th>: A header cell (bold and centered).
+## 3. Links and Media
 
-<td>: A standard data cell.
+> Used to add interactivity and visuals.
 
-6. Forms and Input
-   Used to collect data from the user.
+### <a href="url">
 
-<form>: The container for user input fields.
+> Creates a clickable hyperlink.
 
-<input>: A field for user data (text, password, checkbox, etc.).
+### <img src="url">
 
-<label>: A caption for an input field.
+> Displays an image.
 
-<button>: A clickable button.
+### <video>
 
-<textarea>: A multi-line text input box.
+> Embeds a video player.
 
-7. Containers (Layout)
-   Used for organizing the page into sections.
+### <audio>
 
-<div>: A generic block-level container (starts on a new line).
+> Embeds an audio player.
 
-<span>: A generic inline container (stays in the same line).
+## 4. Lists
 
-<header>: Top section of a page or article.
+> Used for grouping related items.
 
-<nav>: A block of navigation links.
+### <ul>
 
-<footer>: Bottom section of a page or article.
+> Creates a bulleted (unordered) list.
 
-8. Metadata and Scripts
-   Items usually placed inside the <head>.
+### <ol>
 
-<title>: The text that appears in the browser tab.
+> Creates a numbered (ordered) list.
 
-<meta>: Information like character encoding or keywords for SEO.
+### <li>
 
-<link>: Links to an external CSS stylesheet.
+> Defines a single item inside a list.
 
-<script>: Links to or contains JavaScript code.
+## 5. Tables
 
-9. Advanced Form Commands
-   These tags allow you to create more than just a simple text box.
+> Used for displaying grid-based data.
 
-<select>: Creates a dropdown list.
+### <table>
 
-<option>: Defines the individual choices inside that dropdown.
+> The container for the table.
 
-<optgroup>: Groups related options in a dropdown (e.g., grouping "Apples" and "Bananas" under "Fruits").
+### <tr>
 
-<fieldset>: Draws a box around a group of related form elements to organize them.
+> A table row.
 
-<legend>: Adds a caption or title to that <fieldset> box.
+### <th>
 
-10. Semantic Layout Commands
-These tags don't necessarily change how the text looks, but they tell the browser (and Google) exactly what the content is.
+> A header cell (bold and centered).
 
-<article>: Used for independent content like a blog post or news story.
+### <td>
 
-<section>: Groups related content together (like a "Features" or "Contact" section).
+> A standard data cell.
 
-<aside>: Marks content that is "extra" or secondary to the main text (like a sidebar or a pull-quote).
+## 6. Forms and Input
 
-<nav>: Specifically for navigation links (the menu).
+> Used to collect data from the user.
 
-<main>: Tells the browser "this is the most important part of the page."
+### <form>
 
-11. Media and Interaction Commands
-<figure>: Wraps an image or a chart to keep it together with its caption.
+> The container for user input fields.
 
-<figcaption>: The text caption for the image/figure.
+### <input>
 
-<details>: Creates a clickable toggle that the user can open to see more info.
+> A field for user data (text, password, checkbox, etc.).
 
-<summary>: The visible heading for the <details> tag.
+### <label>
 
-<canvas>: A "blank slate" area where you can use code to draw animations or games.
+> A caption for an input field.
 
-<progress>: Displays a progress bar (e.g., "50% complete").
+### <button>
 
-12. Technical Header Commands (Inside <head>)
-These are the "behind the scenes" instructions.
+> A clickable button.
 
-<base>: Sets a default URL/target for all links on the page.
+### <textarea>
 
-<noscript>: Displays a message to the user if they have disabled JavaScript in their browser.
+> A multi-line text input box.
+
+## 7. Containers (Layout)
+
+> Used for organizing the page into sections.
+
+### <div>
+
+> A generic block-level container (starts on a new line).
+
+### <span>
+
+> A generic inline container (stays in the same line).
+
+### <header>
+
+> Top section of a page or article.
+
+### <nav>
+
+> A block of navigation links.
+
+### <footer>
+
+> Bottom section of a page or article.
+
+## 8. Metadata and Scripts
+
+> Items usually placed inside the <head>.
+
+### <title>
+
+> The text that appears in the browser tab.
+
+### <meta>
+
+> Information like character encoding or keywords for SEO.
+
+### <link>
+
+> Links to an external CSS stylesheet.
+
+### <script>
+
+> Links to or contains JavaScript code.
+
+## 9. Advanced Form Commands
+
+> These tags allow you to create more than just a simple text box.
+
+### <select>
+
+> Creates a dropdown list.
+
+### <option>
+
+> Defines the individual choices inside that dropdown.
+
+### <optgroup>
+
+> Groups related options in a dropdown (e.g., grouping "Apples" and "Bananas" under "Fruits").
+
+### <fieldset>
+
+> Draws a box around a group of related form elements to organize them.
+
+### <legend>
+
+> Adds a caption or title to that <fieldset> box.
+
+## 10. Semantic Layout Commands
+
+> These tags don't necessarily change how the text looks, but they tell the browser (and Google) exactly what the content is.
+
+### <article>
+
+> Used for independent content like a blog post or news story.
+
+### <section>
+
+> Groups related content together (like a "Features" or "Contact" section).
+
+### <aside>
+
+> Marks content that is "extra" or secondary to the main text (like a sidebar or a pull-quote).
+
+### <nav>
+
+> Specifically for navigation links (the menu).
+
+### <main>
+
+> Tells the browser "this is the most important part of the page."
+
+## 11. Media and Interaction Commands
+
+### <figure>
+
+> Wraps an image or a chart to keep it together with its caption.
+
+### <figcaption>
+
+> The text caption for the image/figure.
+
+### <details>
+
+> Creates a clickable toggle that the user can open to see more info.
+
+### <summary>
+
+> The visible heading for the <details> tag.
+
+### <canvas>
+
+> A "blank slate" area where you can use code to draw animations or games.
+
+### <progress>
+
+> Displays a progress bar (e.g., "50% complete").
+
+## 12. Technical Header Commands (Inside <head>)
+
+> These are the "behind the scenes" instructions.
+
+### <base>
+
+> Sets a default URL/target for all links on the page.
+
+### <noscript>
+
+> Displays a message to the user if they have disabled JavaScript in their browser.
