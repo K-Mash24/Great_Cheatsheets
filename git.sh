@@ -74,3 +74,9 @@ git stash pop                     # Apply stashed changes
 # Tagging
 git tag <tag-name>                # Create a tag
 git push origin <tag-name>        # Push tag to remote
+
+# Push to Github
+git remote add origin "(url)"
+git branch -M "branch-name"
+git push -u origin "branch-name"
+
