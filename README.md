@@ -71,6 +71,7 @@ A comprehensive reference for everyday Git usage:
 - Aliases & Shortcuts
 - `.gitignore` Patterns
 - Everyday Workflow & Commit Message Conventions
+- File System Commands
 
 > The `.sh` file uses shell comment syntax. The `.md` file is formatted for easy reading on GitHub.
 

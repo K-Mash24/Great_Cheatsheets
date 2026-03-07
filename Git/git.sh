@@ -220,3 +220,78 @@ git rm --cached file.txt        # Stop tracking the file (won't delete it locall
 #   git switch main
 #   git merge my-feature
 #   git push origin main
+
+
+# -----------------------------------------------
+# FILE SYSTEM COMMANDS
+# These are Bash/Linux commands used alongside Git
+# to manage files and folders in your project.
+# Git then tracks the changes they produce.
+# -----------------------------------------------
+
+# --- touch: Create Files ---
+touch file.txt                  # Create a new empty file
+touch file1.txt file2.txt       # Create multiple files at once
+touch src/index.html            # Create a file inside an existing folder
+
+# --- rm: Remove Files & Folders ---
+rm file.txt                     # Delete a file
+rm file1.txt file2.txt          # Delete multiple files
+rm -r my-folder/                # Delete a folder and all its contents
+rm -rf my-folder/               # Force delete with no confirmation ⚠️
+# ⚠️  rm is permanent — there is no trash or undo
+
+# --- mkdir: Create Directories ---
+mkdir my-folder                 # Create a new folder
+mkdir -p src/components/ui      # Create nested folders in one step
+mkdir folder1 folder2           # Create multiple folders at once
+
+# --- mv: Move or Rename ---
+mv old-name.txt new-name.txt    # Rename a file
+mv file.txt src/                # Move a file into a folder
+mv folder/ new-location/        # Move a folder
+mv *.txt archive/               # Move all .txt files into archive/
+
+# --- cp: Copy Files & Folders ---
+cp file.txt copy.txt            # Copy a file
+cp file.txt src/                # Copy a file into a folder
+cp -r my-folder/ backup/        # Copy a folder and all its contents
+cp *.html templates/            # Copy all .html files into templates/
+
+# --- ls: List Files & Directories ---
+ls                              # List files in current directory
+ls -l                           # Detailed list (permissions, size, date)
+ls -a                           # Show hidden files (e.g. .gitignore, .env)
+ls -la                          # Detailed list including hidden files
+ls src/                         # List files inside a specific folder
+
+# --- cat: View File Contents ---
+cat file.txt                    # Print file contents to terminal
+cat file1.txt file2.txt         # Print multiple files in sequence
+cat -n file.txt                 # Print with line numbers
+cat > file.txt                  # Write to a file (overwrites) — Ctrl+C to save
+cat >> file.txt                 # Append to a file — Ctrl+C to save
+
+
+# -----------------------------------------------
+# FILE SYSTEM + GIT: COMBINED WORKFLOW
+# -----------------------------------------------
+
+# Create a new file and immediately stage it:
+#   touch README.md
+#   git add README.md
+#   git commit -m "docs: add README"
+
+# Rename a file and stage the change:
+#   mv old-name.txt new-name.txt
+#   git add .
+#   git commit -m "refactor: rename file"
+
+# Delete a file and stage the removal:
+#   rm unwanted.txt
+#   git add .
+#   git commit -m "chore: remove unwanted file"
+
+# Or use git's built-in equivalents (delete/rename + stage in one step):
+git rm unwanted.txt             # Delete file and stage the removal
+git mv old-name.txt new-name.txt  # Rename file and stage the change
