@@ -8,11 +8,11 @@
 
 | File | Language / Tool | Format | Description |
 |------|----------------|--------|-------------|
-| [python-intro.py](./python-intro.py) | 🐍 Python | `.py` | Runnable Python code examples |
-| [python-intro.md](./python-intro.md) | 🐍 Python | `.md` | Python reference with tables & tips |
-| [html-ref.md](./html-ref.md) | 🌐 HTML | `.md` | HTML tags & elements reference |
-| [git.sh](./git.sh) | 🔧 Git | `.sh` | Git commands as shell comments |
-| [git.md](./git.md) | 🔧 Git | `.md` | Git reference with tables & workflow |
+| [python-intro.py](./Python/python-intro.py) | 🐍 Python | `.py` | Runnable Python code examples |
+| [python.md](./Python/python.md) | 🐍 Python | `.md` | Python reference with tables & tips |
+| [html-ref.md](./HTML/html-ref.md) | 🌐 HTML | `.md` | HTML tags & elements reference |
+| [git.sh](./Git/git.sh) | 🔧 Git | `.sh` | Git commands as shell comments |
+| [git.md](./Git/git.md) | 🔧 Git | `.md` | Git reference with tables & workflow |
 
 ---
 
