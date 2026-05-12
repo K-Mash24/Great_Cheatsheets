@@ -14,7 +14,7 @@ A comprehensive collection of networking fundamentals covering models, protocols
 | [`02.TCP-IP_model.md`](#2-tcpip-model) | TCP/IP Model | 4.1 KB | Practical four-layer model that runs the internet |
 | [`03.Packets_encapsulation.md`](#3-packets--encapsulation) | Data Encapsulation | 4.7 KB | How layers wrap data and PDU types at each level |
 | [`04.Protocols'-Ports.md`](#4-protocols--ports) | Protocols & Ports | 6.7 KB | Common protocols and well-known port reference |
-| [`osi_to_tcpip_mapping.svg`](#visual-reference) | Visual Diagram | SVG | OSI to TCP/IP layer mapping graphic |
+| [`OSI-TCP\IP model.svg`](#visual-reference) | Visual Diagram | SVG | OSI to TCP/IP layer mapping graphic |
 
 ---
 
@@ -39,7 +39,7 @@ A comprehensive collection of networking fundamentals covering models, protocols
 | How does TCP/IP differ from OSI? | `02.TCP-IP_model.md` |
 | How is data packaged? | `03.Packets_encapsulation.md` |
 | Port numbers & protocols | `04.Protocols'-Ports.md` |
-| Visual layer mapping | `osi_to_tcpip_mapping.svg` |
+| Visual layer mapping | `OSI-TCP\IP model.svg` |
 
 ---
 
@@ -179,7 +179,7 @@ Complete sortable table of all 18 essential ports for exam prep
 
 ### Visual Reference
 
-**File:** `osi_to_tcpip_mapping.svg`
+**File:** `OSI-TCP\IP model.svg`
 
 A visual diagram showing:
 - How OSI layers map to TCP/IP layers
