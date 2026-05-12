@@ -8,8 +8,8 @@
 
 | File | Language / Tool | Format | Description |
 |------|----------------|--------|-------------|
-| [Web_Dev](./Web_Dev) | 🛠️ Web Development Languages | `,md` & `.sh` | Git and HTML |
-| [Python](./Python) | 🐍 Python | `,md` & `.py` | Python references with runnable code examples |
+| [Web_Dev](./Web_Dev) | 🛠️ Web Development Languages | `.md` & `.sh` | Git and HTML |
+| [Python](./Python) | 🐍 Python | `.md` & `.py` | Python references with runnable code examples |
 | [Networking](./Networking) | 🌐 Networking | `.md` | OSI and TCP/IP |
 
 
