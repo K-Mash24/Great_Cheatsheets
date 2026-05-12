@@ -12,6 +12,8 @@
 | [Python](./Python) | 🐍 Python | `.md` & `.py` | Python references with runnable code examples |
 | [Networking](./Networking) | 🌐 Networking | `.md` | OSI and TCP/IP |
 
+> The [Web_Dev](./Web_Dev) page contains both the [HTML](./Web_Dev/HTML) and the [Git](./Web_Dev/Git) resources. 📂📂
+---
 
 ## 🐍 Python — `python-intro.py` & `python-intro.md`
 
