@@ -13,7 +13,7 @@
 
 - [x] **Section 1 — How the internet is structured** ✓
   - OSI model, layers, protocols overview
-  - [View notes](./Section1-Internet-Structure.md)
+  - [View notes](./01.%20How%20the%20Internet%20is%20Structured)
 
 - [ ] **Section 2 — IP addressing** ← next
   - IPv4/IPv6, address formats, public/private ranges
