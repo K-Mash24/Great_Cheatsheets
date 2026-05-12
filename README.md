@@ -1,18 +1,31 @@
 # 📚 Great Cheatsheets
 
-- A growing collection of cheatsheets for programming languages, tools, and frameworks — built as I learn and expand my skills.
+A growing collection of cheatsheets for programming languages, tools, and frameworks — built as I learn and expand my skills.
+
+**Last Updated:** May 2026 | **Total Cheatsheets:** 3 categories | **Python Version:** 3.8+
+
+---
+
+## 🚀 Quick Links
+
+- [Python](#-python)
+- [HTML](#-html)
+- [Git](#-git)
+- [Roadmap](#-roadmap)
+- [Getting Started](#-getting-started)
 
 ---
 
 ## 🗂️ Contents
 
-| File | Language / Tool | Format | Description |
-|------|----------------|--------|-------------|
-| [Web_Dev](./Web_Dev) | 🛠️ Web Development Languages | `.md` & `.sh` | Git and HTML |
-| [Python](./Python) | 🐍 Python | `.md` & `.py` | Python references with runnable code examples |
-| [Networking](./Networking) | 🌐 Networking | `.md` | OSI and TCP/IP |
+| File | Language / Tool | Format | Status | Description |
+|------|----------------|--------|--------|-------------|
+| [Web_Dev](./Web_Dev) | 🛠️ Web Development Languages | `.md` & `.sh` | ✅ Complete | Git and HTML resources |
+| [Python](./Python) | 🐍 Python | `.md` & `.py` | ✅ Complete | Python intro with runnable code examples |
+| [Networking](./Networking) | 🌐 Networking | `.md` | ✅ Complete | OSI model and TCP/IP protocols |
 
-> The [Web_Dev](./Web_Dev) page contains both the [HTML](./Web_Dev/HTML) and the [Git](./Web_Dev/Git) resources. 📂📂
+> The [Web_Dev](./Web_Dev) directory contains both [HTML](./Web_Dev/HTML) and [Git](./Web_Dev/Git) resources. 📂
+
 ---
 
 ## 🐍 Python — `python-intro.py` & `python-intro.md`
@@ -30,7 +43,11 @@ Covers the core building blocks of Python:
 - Functions (default params, `*args`, multiple returns)
 - Imports & the `math` module
 
-> The `.py` file contains runnable code. The `.md` file is formatted for easy reading on GitHub.
+**File Formats:**
+- `.py` — Executable code with examples (run with `python python-intro.py`)
+- `.md` — Formatted reference for GitHub viewing
+
+[⬆ back to top](#-great-cheatsheets)
 
 ---
 
@@ -50,6 +67,8 @@ A complete markdown reference guide covering:
 - Meta & Head Tags (SEO, fonts, scripts)
 - Inline Text Formatting
 - Special Characters & Miscellaneous
+
+[⬆ back to top](#-great-cheatsheets)
 
 ---
 
@@ -72,7 +91,11 @@ A comprehensive reference for everyday Git usage:
 - Everyday Workflow & Commit Message Conventions
 - File System Commands
 
-> The `.sh` file uses shell comment syntax. The `.md` file is formatted for easy reading on GitHub.
+**File Formats:**
+- `.sh` — Shell syntax with comments
+- `.md` — Formatted reference for GitHub viewing
+
+[⬆ back to top](#-great-cheatsheets)
 
 ---
 
@@ -91,9 +114,39 @@ Cheatsheets planned for future addition:
 
 ---
 
+## 📖 Getting Started
+
+### How to Use This Repository
+
+1. **Browse on GitHub** — Read the `.md` files directly for formatted views
+2. **Clone the Repository** — `git clone https://github.com/K-Mash24/Great_Cheatsheets.git`
+3. **Run Python Examples** — Navigate to the Python directory and run: `python python-intro.py`
+4. **Quick Reference** — Use `.sh` and `.md` files as quick lookup guides
+
+### File Format Guide
+
+| Format | Purpose | Best For |
+|--------|---------|----------|
+| `.md` | Markdown formatting, readable on GitHub | Quick reference, studying |
+| `.py` | Executable Python code | Running examples, learning by doing |
+| `.sh` | Shell syntax with comments | Git workflows, command reference |
+
+---
+
 ## 👤 About
 
-This repository is a personal learning resource. As I pick up new languages and tools, I add a cheatsheet to keep everything in one place for quick reference.
+This repository is a personal learning resource that grows as I learn new languages and tools. Each cheatsheet is designed to be a comprehensive yet concise reference guide for quick lookups and active learning.
+
+**Maintenance:** Cheatsheets are updated regularly as I deepen my knowledge and discover better practices.
+
+---
+
+## 🔗 Related Resources
+
+- [GitHub Documentation](https://docs.github.com)
+- [Python Official Docs](https://docs.python.org/3/)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [DevDocs](https://devdocs.io/) — Offline documentation browser
 
 ---
 
