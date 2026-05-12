@@ -8,13 +8,10 @@
 
 | File | Language / Tool | Format | Description |
 |------|----------------|--------|-------------|
-| [python-intro.py](./Python/python-intro.py) | 🐍 Python | `.py` | Runnable Python code examples |
-| [python.md](./Python/python.md) | 🐍 Python | `.md` | Python reference with tables & tips |
-| [html-ref.md](./HTML/html-ref.md) | 🌐 HTML | `.md` | HTML tags & elements reference |
-| [git.sh](./Git/git.sh) | 🔧 Git | `.sh` | Git commands as shell comments |
-| [git.md](./Git/git.md) | 🔧 Git | `.md` | Git reference with tables & workflow |
+| [Web_Dev](./Web_Dev) | 🛠️ Web Development Languages | `,md` & `.sh` | Git and HTML |
+| [Python](./Python) | 🐍 Python | `,md` & `.py` | Python references with runnable code examples |
+| [Networking](./Networking) | 🌐 Networking | `.md` | OSI and TCP/IP |
 
----
 
 ## 🐍 Python — `python-intro.py` & `python-intro.md`
 
