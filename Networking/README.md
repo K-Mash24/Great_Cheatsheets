@@ -1,25 +1,25 @@
 # Great Cheatsheets
 
 ## Learning Progress
-- **Completed**: 1 section
+- **Completed**: 2 sections
 - **In Progress**: 1 pillar  
 - **Not Started**: 4 pillars
-- **Last updated**: 2026-05-12
+- **Last updated**: 2026-05-13
 
 ---
 
-## Pillar 1 — Networking (IN PROGRESS) [1/7]
-*Completed: 2026-05-12*
+## Pillar 1 — Networking (IN PROGRESS) [2/7]
+*Completed: 2026-05-13*
 
 - [x] **Section 1 — How the internet is structured** ✓
   - OSI model, layers, protocols overview
   - [View notes](./01.%20How%20the%20Internet%20is%20Structured)
 
-- [ ] **Section 2 — IP addressing** ← next
+- [x] **Section 2 — IP addressing** ✓
   - IPv4/IPv6, address formats, public/private ranges
-  - [View notes](./Section2-IP-Addressing.md)
+  - [View notes](./05.%20IP-Addressing.md)
 
-- [ ] **Section 3 — Subnetting and CIDR**
+- [ ] **Section 3 — Subnetting and CIDR** ← next
   - Subnet masks, CIDR notation, subnet calculations
   - [View notes](./Section3-Subnetting-CIDR.md)
 
