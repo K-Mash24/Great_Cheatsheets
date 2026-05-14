@@ -1,4 +1,5 @@
-# 📚 Great Cheatsheets
+# 🌐 Pillar 1 — Networking (IN PROGRESS) [2/7]
+**Started**: 2026-05-13 | **Difficulty**: 🟢 Beginner → 🟡 Intermediate | **Overall Progress**: ██░░░░░░░ (29%)
 
 ## 📊 Learning Progress
 | Metric | Status |
@@ -10,21 +11,18 @@
 
 ### Overall Progress: ██████░░░░░░░░░░░░░░ (28.6%)
 
+## 📃Table of Content
+- [Structure of the Internet](./01.%20How%20the%20Internet%20is%20Structured) / [Comprehensive Summary](./00%20-%2004.%20COMPREHENSIVE_SUMMARY.md)
+- [IP-Addressing](05.%20IP-Addressing)
+- [Subnetting & CIDR](06.Subnetting%20cidr)
+- []()
+- []()
+- []()
+- []()
+
 ---
 
-## 📑 Table of Contents
-1. [Pillar 1 — Networking](#pillar-1--networking-in-progress-27)
-2. [Pillar 2 — Linux & CLI](#pillar-2--linux--cli)
-3. [Pillar 3 — Security](#pillar-3--security)
-4. [Pillar 4 — Scripting](#pillar-4--scripting)
-5. [Pillar 5 — Databases](#pillar-5--databases)
-
----
-
-## 🌐 Pillar 1 — Networking (IN PROGRESS) [2/7]
-**Started**: 2026-05-13 | **Difficulty**: 🟢 Beginner → 🟡 Intermediate | **Overall Progress**: ██░░░░░░░ (29%)
-
-### ✅ Section 1 — How the internet is structured
+## ✅ Section 1 — How the internet is structured
 **Status**: 🎉 COMPLETED | **Time**: ~1.5 hrs | **Level**: 🟢 Beginner
 
 **Learning Objectives:**
@@ -43,7 +41,7 @@
 
 ---
 
-### ✅ Section 2 — IP addressing
+## ✅ Section 2 — IP addressing
 **Status**: 🎉 COMPLETED | **Time**: ~2 hrs | **Level**: 🟢 Beginner
 
 **Learning Objectives:**
@@ -63,7 +61,7 @@
 
 ---
 
-### ⏭️ Section 3 — Subnetting and CIDR (NEXT)
+## ⏭️ Section 3 — Subnetting and CIDR (NEXT)
 **Status**: 🔲 Not Started | **Time**: ~2.5 hrs | **Level**: 🟡 Intermediate
 
 **Learning Objectives:**
@@ -85,7 +83,7 @@
 
 ---
 
-### Section 4 — Routing and switching
+## Section 4 — Routing and switching
 **Status**: 🔲 Not Started | **Time**: ~2 hrs | **Level**: 🟡 Intermediate
 
 **Learning Objectives:**
@@ -104,7 +102,7 @@
 
 ---
 
-### Section 5 — DNS
+## Section 5 — DNS
 **Status**: 🔲 Not Started | **Time**: ~1.5 hrs | **Level**: 🟢 Beginner
 
 **Learning Objectives:**
