@@ -12,11 +12,20 @@
 *Completed: 2026-05-13*
 
 - [x] **Section 1 — How the internet is structured** ✓
-  - OSI model, layers, protocols overview
+  - Section 1 — How the internet is structured
+  - [x] OSI model (layers 3, 4, 7 are priority)
+  - [x] TCP/IP model and how it maps to OSI
+  - [x] What a packet is and encapsulation
+  - [x] Protocols and common port numbers
   - [View notes](./01.%20How%20the%20Internet%20is%20Structured)
 
 - [x] **Section 2 — IP addressing** ✓
   - IPv4/IPv6, address formats, public/private ranges
+  - [x] IPv4 address structure (32-bit, 4 octets)
+  - [x] Binary and decimal conversion
+  - [x] Public vs private IP ranges (RFC 1918)
+  - [x] Special addresses (loopback, broadcast, APIPA)
+  - [x] IPv6 basics
   - [View notes](./05.%20IP-Addressing.md)
 
 - [ ] **Section 3 — Subnetting and CIDR** ← next
