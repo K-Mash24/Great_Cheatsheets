@@ -73,11 +73,14 @@
 - 📌 Calculate usable hosts and broadcast addresses
 
 **Topics to Cover:**
-- [ ] Subnet masks (default and custom)
-- [ ] CIDR notation and prefix lengths
-- [ ] Subnet calculations and planning
-- [ ] IPv4 address allocation strategies
-
+- [x] What a subnet is
+- [x] Subnet masks
+- [x] CIDR notation
+- [x] Network and broadcast addresses
+- [x] Calculating host counts
+- [x] Subnetting by hand
+- [x] VLSM (variable length subnet masking)
+- [x] Supernetting and route summarisation
 📖 [View notes template](./Section3-Subnetting-CIDR.md)
 
 ---
