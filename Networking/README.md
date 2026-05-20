@@ -55,6 +55,16 @@ By completing this pillar you should be able to:
 | `10-network-security.md`      | Firewalls, ACLs, attacks       | 7       | ✅ Complete  |
 
 ---
+> ## Labs and scripts
+> 
+> | Path                               | Contents                            |
+> |------------------------------------|-------------------------------------|
+> | `labs/subnet-practice.md`          | Subnetting worked problems          |
+> | `labs/dns-dig-walkthrough.md`      | Terminal session — dig and nslookup |
+> | `labs/wireshark-observations.md`   | Wireshark capture notes             |
+> | `scripts/subnet_calc.py`           | Subnet calculator script            |
+- To be done in future
+---
 
 ## Progress checklist
 
