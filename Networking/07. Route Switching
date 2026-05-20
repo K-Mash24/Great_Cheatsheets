@@ -1,0 +1,304 @@
+# Routing and Switching
+
+Routing and switching is where the network comes alive. Addressing defines
+where devices are — routing and switching defines how data actually gets there.
+Two distinct devices do two distinct jobs: switches move data within a network,
+routers move data between networks.
+
+---
+
+## 1. Core distinction — router vs switch
+
+```
+Switch  =  the roads inside a city
+           moves traffic between devices on the same network (layer 2)
+
+Router  =  the motorway interchange between cities
+           moves traffic between different networks (layer 3)
+```
+
+| Feature              | Switch                        | Router                          |
+|----------------------|-------------------------------|---------------------------------|
+| OSI layer            | Layer 2 — Data link           | Layer 3 — Network               |
+| Address used         | MAC address                   | IP address                      |
+| Scope                | Within one subnet             | Between different networks      |
+| Primary function     | Frame delivery to correct port| Packet forwarding to next hop   |
+| Connects             | Devices on same network       | Different networks together     |
+
+---
+
+## 2. Switches
+
+### How a switch works
+
+A switch connects devices within the same network segment. When a frame
+arrives, the switch reads the destination MAC address and forwards the frame
+only to the port where that device is connected — not to every port. This is
+called **unicast forwarding**.
+
+Switches learn MAC addresses automatically by observing traffic. When a frame
+arrives, the switch records the source MAC address and the port it arrived on,
+building a MAC address table over time.
+
+### MAC address table (CAM table)
+
+A table maintained by a switch that maps MAC addresses to the physical port on
+which each device is reachable. Built automatically as traffic passes through
+the switch.
+
+```
+MAC address table example:
+Port 1  →  AA:BB:CC:DD:EE:01  (laptop)
+Port 2  →  AA:BB:CC:DD:EE:02  (printer)
+Port 3  →  AA:BB:CC:DD:EE:03  (server)
+```
+
+If the destination MAC address is unknown, the switch floods the frame to all
+ports except the one it arrived on, then learns the MAC address from the
+response. This is called **unknown unicast flooding**.
+
+---
+
+## 3. ARP — Address Resolution Protocol
+
+### The problem ARP solves
+
+Your machine knows the destination IP address, but a switch needs a MAC
+address to deliver the frame. ARP is the protocol that resolves an IP address
+to its corresponding MAC address within the same subnet.
+
+### How ARP works
+
+```
+1. Your machine broadcasts an ARP request to FF:FF:FF:FF:FF:FF
+   (all devices on the segment receive it):
+   "Who has IP 192.168.1.10? Tell me your MAC address."
+
+2. The device with that IP replies directly:
+   "I have 192.168.1.10 — my MAC is AA:BB:CC:DD:EE:05"
+
+3. Your machine stores this mapping in its ARP cache for future use.
+
+4. Communication proceeds using that MAC address.
+```
+
+### ARP cache
+
+A temporary table stored on each device that maps known IP addresses to their
+corresponding MAC addresses, avoiding repeated ARP broadcasts for every packet.
+
+```bash
+arp -a    # view the ARP cache on your machine (works on Linux, macOS, Windows)
+```
+
+### ARP and the default gateway
+
+ARP only works within the same subnet — it cannot cross a router. For traffic
+destined outside the local subnet, your machine ARPs for the router's MAC
+address (the default gateway) instead, and lets the router handle delivery
+from there.
+
+---
+
+## 4. Routers
+
+### How a router forwards a packet
+
+When a packet arrives at a router:
+
+```
+1. Strip the layer 2 frame (MAC header — it has served its purpose for this hop)
+2. Read the destination IP address in the layer 3 packet header
+3. Look up the destination in the routing table
+4. Forward the packet out of the appropriate interface toward the next hop
+5. Wrap the packet in a new layer 2 frame with the next hop's MAC address
+```
+
+This process repeats at every router along the path. The IP header remains
+unchanged throughout the entire journey. The MAC header is replaced at every
+single hop.
+
+```
+Your laptop  →  [MAC: laptop→router]  [IP: laptop→server]
+                ────── hop 1 ──────►
+Router 1     →  [MAC: R1→R2]          [IP: laptop→server]
+                ────── hop 2 ──────►
+Router 2     →  [MAC: R2→server]      [IP: laptop→server]
+                ────── hop 3 ──────►
+Server
+```
+
+---
+
+## 5. Routing table
+
+A table maintained by a router listing known destination networks, the next
+hop address for each, and the exit interface to use.
+
+```
+Destination        Next hop          Interface
+────────────────────────────────────────────────
+192.168.1.0/24     directly connected   eth0
+10.0.0.0/8         10.0.0.1             eth1
+172.16.0.0/16      10.0.0.1             eth1
+0.0.0.0/0          203.0.113.1          eth2   ← default route
+```
+
+### Longest prefix match
+
+When multiple routing table entries match a destination IP address, the router
+always chooses the entry with the longest (most specific) prefix length.
+
+```
+Destination: 10.0.0.5
+
+Matching entries:
+  10.0.0.0/8    →  matches (broad)
+  10.0.0.0/24   →  matches (more specific)
+
+Router chooses: 10.0.0.0/24  ← longest prefix wins
+```
+
+### Default route — 0.0.0.0/0
+
+The entry `0.0.0.0/0` matches every destination. It is the catch-all route
+used when no more specific entry exists — the router sends the packet to the
+default gateway. On home routers this points to the ISP. On the internet this
+points toward the BGP routing infrastructure.
+
+---
+
+## 6. Default gateway
+
+The IP address of the router on the local network, configured on every device.
+When a device needs to send traffic to a destination outside its own subnet, it
+forwards the packet to the default gateway and lets the router handle delivery.
+
+```
+Destination is local (same subnet)?
+  Yes → send directly via ARP → MAC address of destination device
+  No  → send to default gateway → MAC address of router
+```
+
+In home networks the default gateway is typically `192.168.1.1` — the router's
+private-side IP address.
+
+---
+
+## 7. Static vs dynamic routing
+
+### Static routing
+
+Routes manually entered into a routing table by a network administrator.
+Simple and predictable but does not adapt automatically if a link fails. Used
+in small networks or for specific fixed paths.
+
+```
+Advantages:    predictable, no protocol overhead, secure
+Disadvantages: does not self-heal, labour-intensive at scale
+```
+
+### Dynamic routing
+
+Routes learned and shared automatically between routers using routing
+protocols. The routing table builds and updates itself — if a link fails,
+an alternative path is found automatically.
+
+```
+Advantages:    self-healing, scales to large networks
+Disadvantages: protocol overhead, more complex to configure
+```
+
+### Common dynamic routing protocols
+
+| Protocol | Full name                                  | Use case                              |
+|----------|--------------------------------------------|---------------------------------------|
+| RIP      | Routing Information Protocol               | Small, simple networks                |
+| OSPF     | Open Shortest Path First                   | Enterprise networks                   |
+| EIGRP    | Enhanced Interior Gateway Routing Protocol | Cisco networks                        |
+| BGP      | Border Gateway Protocol                    | Routing between networks on the public internet |
+
+### BGP — Border Gateway Protocol
+
+The dynamic routing protocol that holds the public internet together. Used by
+ISPs (Internet Service Providers) and major networks to advertise their address
+blocks to each other and determine paths across the global internet. Every
+major network on the internet runs BGP.
+
+---
+
+## 8. NAT and PAT
+
+### NAT (Network Address Translation)
+
+A process running on a router at the boundary between a private network and
+the public internet. Translates private source IP addresses to the router's
+public IP address as traffic leaves, and reverses the translation when
+responses return — allowing many private devices to share one public IP address.
+
+```
+Private side                  Router (NAT)              Public internet
+──────────────────────────────────────────────────────────────────────
+192.168.1.5  ──► packet ──►  src: 192.168.1.5       ──►  41.90.64.22
+                              translated to 41.90.64.22
+Web server   ◄── response ◄─  dst: 41.90.64.22       ◄──  41.90.64.22
+                              translated to 192.168.1.5
+```
+
+The router maintains a **NAT translation table** to track which private device
+each outgoing connection belongs to, so responses are routed back correctly.
+
+### PAT (Port Address Translation)
+
+The most common form of NAT, also called **NAT overload**. Extends NAT by
+using unique source port numbers to track multiple simultaneous connections
+from different private devices — all sharing one public IP address.
+
+Each connection is identified by the combination of public IP address and port
+number, allowing the router to route responses back to the correct private
+device.
+
+```
+Private device        NAT translation          Public internet
+────────────────────────────────────────────────────────────────
+192.168.1.5:51234  →  41.90.64.22:51234       (laptop browsing)
+192.168.1.7:51235  →  41.90.64.22:51235       (phone browsing)
+192.168.1.9:51236  →  41.90.64.22:51236       (TV streaming)
+```
+
+All three devices share one public IP — differentiated by port number.
+
+### NAT vs PAT
+
+| Feature             | NAT                          | PAT                              |
+|---------------------|------------------------------|----------------------------------|
+| Translation unit    | IP address only              | IP address + port number         |
+| Devices supported   | One private per public IP    | Many private per public IP       |
+| Common use          | Static server mappings       | Home and office networks         |
+| Also known as       | Basic NAT / static NAT       | NAT overload / dynamic NAT       |
+
+---
+
+## 9. The full picture — data leaving your machine
+
+When you type a URL into your browser and hit enter, here is what happens at
+the network layer:
+
+```
+1. DNS resolves the hostname to a destination IP address (section 5)
+2. Your machine checks: is the destination on my subnet?
+   → No → forward to default gateway
+3. ARP resolves the default gateway's MAC address
+4. Frame is sent to the switch → switch forwards to the router port
+5. Router strips the frame, reads the IP header
+6. Router consults routing table → longest prefix match
+7. NAT translates your private IP to the public IP
+8. Packet leaves your network toward the destination
+9. Each router along the path repeats steps 5 and 6
+10. Destination server receives the packet, responds
+11. Response travels back through the same routers
+12. NAT translates the public IP back to your private IP
+13. Your machine receives the response
+```
+
+---
