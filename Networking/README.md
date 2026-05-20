@@ -1,76 +1,77 @@
-# 🌐 Pillar 1 — Networking (IN PROGRESS) [2/7]
-**Started**: 2026-05-13 | **Difficulty**: 🟢 Beginner → 🟡 Intermediate | **Overall Progress**: ██░░░░░░░ (29%)
+# Pillar 1 — Networking Fundamentals
 
-## 📊 Learning Progress
-| Metric | Status |
-|--------|--------|
-| **Completed Sections** | 2/7 (29%) |
-| **Current Pillar** | 🌐 Networking |
-| **Pillars Remaining** | 4/5 |
-| **Last Updated** | 2026-05-13 |
+## Purpose
 
-### Overall Progress: ██████░░░░░░░░░░░░░░ (28.6%)
+This pillar builds genuine networking foundations from first principles before
+touching any cloud infrastructure or AWS services. Networking underpins every
+system you will design, operate, and troubleshoot as a Solutions Architect and
+DevOps engineer — understanding it deeply, not superficially, is the goal.
 
-## 📃Table of Content
-- [Structure of the Internet](./01.%20How%20the%20Internet%20is%20Structured) / [Comprehensive Summary](./00%20-%2004.%20COMPREHENSIVE_SUMMARY.md)
-- [IP-Addressing](05.%20IP-Addressing)
-- [Subnetting & CIDR](06.Subnetting%20cidr)
-- []()
-- []()
-- []()
-- []()
+Every concept here was studied independently of cloud tooling. The knowledge
+transfers directly to AWS (VPCs, subnets, route tables, security groups, DNS,
+load balancers) and to the full DevOps roadmap (service discovery, container
+networking, Kubernetes networking, infrastructure as code).
 
 ---
 
-## ✅ Section 1 — How the internet is structured
-**Status**: 🎉 COMPLETED | **Time**: ~1.5 hrs | **Level**: 🟢 Beginner
+## Learning objectives
 
-**Learning Objectives:**
-- 📌 Understand the OSI model and its 7 layers
-- 📌 Learn the TCP/IP model and how it maps to OSI
-- 📌 Understand what packets are and data encapsulation
-- 📌 Memorize common protocols and port numbers
+By completing this pillar you should be able to:
 
-**Topics Covered:**
-- [x] OSI model (layers 3, 4, 7 are priority)
+- Explain the OSI and TCP/IP models from memory and identify which protocols
+  and devices operate at each layer
+- Read and write IPv4 addresses in both decimal and binary, and identify
+  address classes, private ranges, and special addresses
+- Perform subnetting calculations by hand — network address, broadcast
+  address, usable host range, and host count — for any given CIDR block
+- Design a VLSM addressing scheme for a network with mixed host requirements
+- Explain how routers forward packets using routing tables and longest prefix
+  match, and how switches use MAC address tables for local delivery
+- Describe how NAT and PAT allow private networks to share a public IP address
+- Trace a DNS query from browser cache through recursive resolver, root server,
+  TLD server, and authoritative name server to final answer
+- Differentiate TCP and UDP, explain the three-way handshake, and identify
+  appropriate use cases for each protocol
+- Define stateless and stateful firewalls, explain ACL rule evaluation, and
+  describe network zone design including the DMZ
+- Identify common network attacks (SYN flood, ARP spoofing, MITM, DDoS) and
+  explain the mechanism behind each
+
+---
+
+## Files in this pillar
+
+| File                          | Topic                          | Section |
+|-------------------------------|--------------------------------|---------|
+| `01-osi-model.md`             | OSI model — all seven layers   | 1       |
+| `02-tcpip-model.md`           | TCP/IP model and OSI mapping   | 1       |
+| `03-packets-encapsulation.md` | Packets and encapsulation      | 1       |
+| `04-protocols-ports.md`       | Protocols and port numbers     | 1       |
+| `05-ip-addressing.md`         | IPv4 structure, binary, IPv6   | 2       |
+| `06-subnetting-cidr.md`       | Subnetting, CIDR, VLSM         | 3       |
+| `07-routing-switching.md`     | Routing, switching, NAT, PAT   | 4       |
+| `08-dns.md`                   | DNS hierarchy and resolution   | 5       |
+| `09-tcp-udp.md`               | TCP, UDP, sockets, flow control| 6       |
+| `10-network-security.md`      | Firewalls, ACLs, attacks       | 7       |
+
+---
+
+## Progress checklist
+
+### Section 1 — How the internet is structured
+- [x] OSI model (layers 3, 4, and 7 are priority)
 - [x] TCP/IP model and how it maps to OSI
 - [x] What a packet is and encapsulation
 - [x] Protocols and common port numbers
 
-📖 [View detailed notes](./01.%20How%20the%20Internet%20is%20Structured)
-
----
-
-## ✅ Section 2 — IP addressing
-**Status**: 🎉 COMPLETED | **Time**: ~2 hrs | **Level**: 🟢 Beginner
-
-**Learning Objectives:**
-- 📌 Master IPv4 address structure and representation
-- 📌 Convert between binary and decimal
-- 📌 Understand public vs private IP ranges
-- 📌 Learn IPv6 basics
-
-**Topics Covered:**
+### Section 2 — IP addressing
 - [x] IPv4 address structure (32-bit, 4 octets)
 - [x] Binary and decimal conversion
 - [x] Public vs private IP ranges (RFC 1918)
 - [x] Special addresses (loopback, broadcast, APIPA)
 - [x] IPv6 basics
 
-📖 [View detailed notes](./05.%20IP-Addressing.md)
-
----
-
-## ⏭️ Section 3 — Subnetting and CIDR (NEXT)
-**Status**: 🔲 Not Started | **Time**: ~2.5 hrs | **Level**: 🟡 Intermediate
-
-**Learning Objectives:**
-- 📌 Understand subnet masks and CIDR notation
-- 📌 Perform subnet calculations
-- 📌 Design network subnets efficiently
-- 📌 Calculate usable hosts and broadcast addresses
-
-**Topics to Cover:**
+### Section 3 — Subnetting and CIDR
 - [x] What a subnet is
 - [x] Subnet masks
 - [x] CIDR notation
@@ -79,192 +80,89 @@
 - [x] Subnetting by hand
 - [x] VLSM (variable length subnet masking)
 - [x] Supernetting and route summarisation
-📖 [View notes template](./Section3-Subnetting-CIDR.md)
 
----
+### Section 4 — Routing and switching
+- [x] What a router does vs a switch
+- [x] Routing tables
+- [x] Default gateway
+- [x] Static vs dynamic routing
+- [x] NAT and PAT
+- [x] Switches, MAC addresses, and ARP
 
-## Section 4 — Routing and switching
-**Status**: 🔲 Not Started | **Time**: ~2 hrs | **Level**: 🟡 Intermediate
+### Section 5 — DNS
+- [x] What DNS does
+- [x] DNS hierarchy (root → TLD → authoritative)
+- [x] DNS record types (A, AAAA, CNAME, MX, NS, TXT)
+- [x] DNS resolution walkthrough
+- [x] Practical DNS tools (dig, nslookup)
 
-**Learning Objectives:**
-- 📌 Understand how routers forward packets
-- 📌 Learn switching concepts and VLAN basics
-- 📌 Understand routing protocols (static vs dynamic)
-- 📌 Trace network paths
-
-**Topics to Cover:**
-- [ ] Routing concepts and routing tables
-- [ ] Distance vector vs link state protocols
-- [ ] Switching basics and MAC tables
-- [ ] VLANs and inter-VLAN routing
-
-📖 [View notes template](./Section4-Routing-Switching.md)
-
----
-
-## Section 5 — DNS
-**Status**: 🔲 Not Started | **Time**: ~1.5 hrs | **Level**: 🟢 Beginner
-
-**Learning Objectives:**
-- 📌 Understand domain name resolution process
-- 📌 Learn common DNS record types
-- 📌 Understand DNS hierarchy and servers
-- 📌 Troubleshoot DNS issues
-
-**Topics to Cover:**
-- [ ] DNS resolution process and queries
-- [ ] DNS record types (A, AAAA, MX, CNAME, etc.)
-- [ ] DNS servers and zones
-- [ ] DNS caching and TTL
-
-📖 [View notes template](./Section5-DNS.md)
-
----
-
-### Section 6 — TCP and UDP
-**Status**: 🔲 Not Started | **Time**: ~2 hrs | **Level**: 🟡 Intermediate
-
-**Learning Objectives:**
-- 📌 Understand transport layer protocols
-- 📌 Master TCP three-way handshake
-- 📌 Learn UDP and when to use each protocol
-- 📌 Understand ports and port management
-
-**Topics to Cover:**
-- [ ] TCP vs UDP comparison
-- [ ] TCP three-way handshake and connection states
-- [ ] UDP connectionless model
-- [ ] Common ports and services
-- [ ] Flow control and congestion control
-
-📖 [View notes template](./Section6-TCP-UDP.md)
-
----
+### Section 6 — Transport layer (TCP and UDP)
+- [x] TCP — reliable delivery and 3-way handshake
+- [x] UDP — connectionless, when to use it
+- [x] TCP vs UDP use cases
+- [x] Ports and sockets
+- [x] TCP flow control and congestion
 
 ### Section 7 — Network security basics
-**Status**: 🔲 Not Started | **Time**: ~2.5 hrs | **Level**: 🟡 Intermediate
-
-**Learning Objectives:**
-- 📌 Understand firewalls and their types
-- 📌 Learn encryption basics for network security
-- 📌 Recognize common network attacks
-- 📌 Apply security best practices
-
-**Topics to Cover:**
-- [ ] Firewall types and rules
-- [ ] Encryption protocols (SSL/TLS, IPsec)
-- [ ] Common attacks (DDoS, packet sniffing, etc.)
-- [ ] VPN and secure tunneling
-- [ ] Network security best practices
-
-📖 [View notes template](./Section7-Network-Security.md)
+- [x] Firewalls — stateless vs stateful
+- [x] Access control lists (ACLs)
+- [x] Network zones and DMZ
+- [x] Common network layer attacks
+- [x] Wireshark basics
 
 ---
 
-## 🐧 Pillar 2 — Linux & CLI (not started)
+## Key concepts to revise before moving on
 
-<details>
-<summary><b>📋 Expand to view 5 sections</b></summary>
+The following are the highest-yield concepts from this pillar — revisit these
+before beginning Pillar 2 or sitting the SAA exam:
 
-| Section | Status | Level |
-|---------|--------|-------|
-| Section 1 — Basic commands | 🔲 | 🟢 Beginner |
-| Section 2 — File systems | 🔲 | 🟢 Beginner |
-| Section 3 — Users and permissions | 🔲 | 🟡 Intermediate |
-| Section 4 — Process management | 🔲 | 🟡 Intermediate |
-| Section 5 — Package managers | 🔲 | 🟡 Intermediate |
-
-</details>
-
----
-
-## 🔐 Pillar 3 — Security (not started)
-
-<details>
-<summary><b>📋 Expand to view 5 sections</b></summary>
-
-| Section | Status | Level |
-|---------|--------|-------|
-| Section 1 — Cryptography basics | 🔲 | 🟡 Intermediate |
-| Section 2 — Authentication & authorization | 🔲 | 🟡 Intermediate |
-| Section 3 — Common vulnerabilities | 🔲 | 🟡 Intermediate |
-| Section 4 — Secure coding practices | 🔲 | 🟠 Advanced |
-| Section 5 — Penetration testing basics | 🔲 | 🟠 Advanced |
-
-</details>
+- **OSI layers 3, 4, 7** — know the protocols at each layer cold
+- **Subnetting by hand** — given any CIDR block, calculate network address,
+  broadcast address, usable range, and host count without assistance
+- **VLSM** — allocate subnets of different sizes from a single address space
+- **TCP three-way handshake** — SYN, SYN-ACK, ACK and what each step achieves
+- **DNS resolution** — the full path from browser cache to authoritative server
+- **NAT/PAT** — how private addresses share a single public IP using port numbers
+- **Stateful vs stateless firewall** — the difference and why it matters
+- **RFC 1918 ranges** — `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`
 
 ---
 
-## 🛠️ Pillar 4 — Scripting (not started)
+## Labs and scripts
 
-<details>
-<summary><b>📋 Expand to view 5 sections</b></summary>
-
-| Section | Status | Level |
-|---------|--------|-------|
-| Section 1 — Shell scripting fundamentals | 🔲 | 🟢 Beginner |
-| Section 2 — Python basics | 🔲 | 🟢 Beginner |
-| Section 3 — Automation scripts | 🔲 | 🟡 Intermediate |
-| Section 4 — Error handling | 🔲 | 🟡 Intermediate |
-| Section 5 — Best practices | 🔲 | 🟡 Intermediate |
-
-</details>
+| Path                               | Contents                            |
+|------------------------------------|-------------------------------------|
+| `labs/subnet-practice.md`          | Subnetting worked problems          |
+| `labs/dns-dig-walkthrough.md`      | Terminal session — dig and nslookup |
+| `labs/wireshark-observations.md`   | Wireshark capture notes             |
+| `scripts/subnet_calc.py`           | Subnet calculator script            |
 
 ---
 
-## 🗄️ Pillar 5 — Databases (not started)
+## Commit history for this pillar
 
-<details>
-<summary><b>📋 Expand to view 5 sections</b></summary>
-
-| Section | Status | Level |
-|---------|--------|-------|
-| Section 1 — SQL fundamentals | 🔲 | 🟢 Beginner |
-| Section 2 — Database design | 🔲 | 🟡 Intermediate |
-| Section 3 — Indexing & optimization | 🔲 | 🟠 Advanced |
-| Section 4 — Transactions & ACID | 🔲 | 🟡 Intermediate |
-| Section 5 — NoSQL basics | 🔲 | 🟡 Intermediate |
-
-</details>
-
----
-
-## 💡 How to Use This Repository
-
-This repository is organized as a structured learning path covering 5 core pillars. Each section builds on previous knowledge.
-
-**Recommended approach:**
-1. 📖 Read the notes in the linked files
-2. ✍️ Take your own notes
-3. 🧪 Practice with real-world examples
-4. ☑️ Check off completed sections
-5. 🔄 Review previous sections regularly
-
-**Prerequisites:**
-- Basic computer literacy
-- Understanding of networking concepts (helpful but not required)
-- Command line familiarity (for some sections)
+```
+networking: add OSI model notes (section 1)
+networking: add TCP/IP model notes (section 1)
+networking: add packets and encapsulation notes (section 1)
+networking: add protocols and port numbers notes (section 1)
+networking: add IP addressing notes (section 2)
+networking: add subnetting and CIDR notes (section 3)
+networking: add routing and switching notes (section 4)
+networking: add DNS notes (section 5)
+networking: add TCP and UDP notes (section 6)
+networking: add network security basics notes (section 7)
+```
 
 ---
 
-## 📊 Statistics
+## What comes next
 
-- **Total Sections**: 35
-- **Completed**: 2
-- **In Progress**: 5
-- **Not Started**: 28
-- **Estimated Total Time**: ~50-60 hours
-- **Learning Streak**: 🔥 1 day
+**Pillar 2 — Linux and CLI proficiency**
 
----
-
-## 🎯 Next Steps
-
-1. ⏭️ Start Section 3 — Subnetting and CIDR
-2. 🎯 Aim to complete Networking pillar by 2026-06-15
-3. 📝 Keep notes well-organized in separate files
-4. 🔄 Review completed sections weekly
-
----
-
-*Last updated: 2026-05-14* ⏰
+The networking foundations built here connect directly to Linux. You will use
+the command line to inspect network interfaces (`ip addr`, `ifconfig`), trace
+routes (`traceroute`), query DNS (`dig`, `nslookup`), analyse traffic
+(Wireshark, `tcpdump`), and configure firewall rules (`iptables`, `ufw`).
+Linux is where the theory becomes hands-on.
