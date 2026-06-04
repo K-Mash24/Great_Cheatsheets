@@ -1,31 +1,28 @@
 # 02 — File & Directory Operations
 
-Full checklist:
-
-✅ Creating files — touch, >, >>
-✅ Creating directories — mkdir, mkdir -p
-✅ Copying — cp, cp -i, cp -r
-✅ Moving & renaming — mv, mv -i
-✅ Deleting — rm, rm -rf, rmdir
-✅ Viewing file contents — cat, less, head, tail
-✅ Wildcards — *, ?
+## Checklist
+- ✅ Creating files — `touch`, `>`, `>>`
+- ✅ Creating directories — `mkdir`, `mkdir -p`
+- ✅ Copying — `cp`, `cp -i`, `cp -r`
+- ✅ Moving & renaming — `mv`, `mv -i`
+- ✅ Deleting — `rm`, `rm -rf`, `rmdir`
+- ✅ Wildcards — `*`, `?`
+- ✅ Viewing file contents — `cat`, `less`, `head`, `tail`
 
 ---
 
 ## Creating files
 
 ### `touch`
-Creates an empty file instantly. If the file already exists, `touch` updates its timestamp (last modified time) without changing contents.
-
+Creates an empty file instantly. If the file already exists, `touch` updates its timestamp (last modified time) without changing its contents.
 ```bash
 touch notes.txt
 touch file1.txt file2.txt file3.txt    # create multiple at once
-touch existing.txt                     # updates timestamp, doesn't empty
-
+touch existing.txt                     # updates timestamp, doesn't empty the file
 ```
 
 ### Redirection with `>`
-Creates a file and writes content into it. Overwrites the entire file if it exists.
+Creates a file and writes content into it. Overwrites the **entire file** if it already exists.
 ```bash
 echo "hello world" > notes.txt
 ```
@@ -42,7 +39,7 @@ echo "second line" >> notes.txt
 | `>`      | Wipes the file, writes fresh |
 | `>>`     | Keeps existing content, adds to the bottom |
 
-> **Warning:** `>` is destructive. It wipes the entire file — not just one line.
+> **Warning:** `>` is destructive — it wipes the entire file, not just one line.
 
 ---
 
@@ -57,7 +54,7 @@ mkdir -p projects/linux/section-2      # create full nested path in one shot
 ```
 
 > `-p` creates all missing parent directories along the way. Without it,
-> `mkdir a/b/c` fails if `a/b` doesn't exist yet.
+> `mkdir a/b/c` fails if `a/b` doesn't already exist.
 
 ---
 
@@ -70,20 +67,16 @@ cp source destination
 ```bash
 cp notes.txt backup/                   # copy into a directory
 cp notes.txt backup/notes-copy.txt     # copy and rename at the same time
-cp -r projects projects-backup         # copy a directory (needs -r)
+cp -r projects projects-backup         # copy a directory and all its contents
 cp -i notes.txt backup/                # interactive — asks before overwriting
 ```
 
-> `-r` means recursive — required for directories. Without it, `cp` refuses
-> to copy a directory.
-
-> -i means Interactive — prompts before overwriting
-> -i is a safety net. Use it when you're unsure if a file already exists.
-
 | Flag | Meaning |
 |------|---------|
-| `-r`     | Recursive — required for directories |
-| `-i`     | Interactive — prompts before overwriting |
+| `-r` | Recursive — required for directories |
+| `-i` | Interactive — prompts before overwriting |
+
+> `-i` is a safety net. Use it when unsure whether the destination already has a file with the same name.
 
 ---
 
@@ -101,12 +94,12 @@ mv projects archive/                   # move a directory (no -r needed)
 mv -i notes.txt archive/               # interactive — asks before overwriting
 ```
 
-> Unlike `cp`, `mv` leaves no copy behind. The original is gone.
-> Unlike `cp`, `mv` doesn't need `-r` for directories.
-
 | Flag | Meaning |
 |------|---------|
 | `-i` | Interactive — prompts before overwriting |
+
+> Unlike `cp`, `mv` leaves no copy behind — the original is gone.
+> Unlike `cp`, `mv` doesn't need `-r` for directories.
 
 ---
 
@@ -125,43 +118,45 @@ rm -rf projects/                       # force delete — no prompts, no mercy
 
 ### `rmdir` — remove empty directories only
 ```bash
-rmdir empty-dir/                       # only works if directory is empty
+rmdir empty-dir/                       # only works if the directory is empty
 ```
 
-| Command | Behaviour |
-|---------|-----------|
-| `rm`    | Deletes files |
-| `rm -r` | Deletes directories and their contents |
-| `rm -rf`| Force deletes everything — no confirmation |
-| `rmdir` | Deletes directories only if empty — safe option |
+| Command  | Behaviour |
+|----------|-----------|
+| `rm`     | Deletes files |
+| `rm -r`  | Deletes a directory and everything inside it |
+| `rm -rf` | Force deletes — no confirmation, no recovery |
+| `rmdir`  | Deletes a directory only if it is empty — safe option |
 
-> Safety tip: rm -rf is irreversible. Some users alias rm to rm -i or rm -I to prevent disasters.
+> Safety tip: `rm -rf` is irreversible. Some users alias `rm` to `rm -i` to prevent accidental deletion.
 
 ---
 
 ## Wildcards — `*` and `?`
-Wildcards let you perform operations on multiple files at once.
+
+Wildcards let you match multiple files in a single command without naming each one.
 
 ### `*` — matches any number of characters (including zero)
-
 ```bash
-rm *.log                              # delete all .log files
-cp *.txt backup/                      # copy all text files
-ls chapter-*.md                       # list all markdown files starting with "chapter-"
+rm *.log                               # delete all .log files
+cp *.txt backup/                       # copy all .txt files into backup/
+ls chapter-*.md                        # list all markdown files starting with "chapter-"
 ```
 
 ### `?` — matches exactly one character
 ```bash
-ls file-?.txt                         # matches file-1.txt, file-a.txt, but NOT file-10.txt
-rm photo-??.jpg                       # removes photo-01.jpg, photo-AB.jpg (2 chars after dash)
+ls file-?.txt                          # matches file-1.txt, file-a.txt — NOT file-10.txt
+rm photo-??.jpg                        # matches photo-01.jpg, photo-AB.jpg (exactly 2 chars)
 ```
 
 | Wildcard | Matches | Example |
 |----------|---------|---------|
-| `*` | Anything or nothing | `*.txt`= all text files  |
-| `?` | Exactly one character | `file-?.txt`= file-1.txt, file-a.txt  |
+| `*` | Anything or nothing | `*.txt` — all text files |
+| `?` | Exactly one character | `file-?.txt` — file-1.txt, file-a.txt |
 
-> Caution with `rm *`: Always `ls *` first to see what you're about to delete.
+> **Caution with `rm *`:** Always run `ls *` first to see what you're about to delete.
+
+---
 
 ## Viewing file contents
 
@@ -169,13 +164,13 @@ rm photo-??.jpg                       # removes photo-01.jpg, photo-AB.jpg (2 ch
 ```bash
 cat notes.txt
 ```
-Best for short files. Dumps everything at once.
+Best for short files. Dumps everything at once — long files will scroll past you.
 
 ### `less` — scrollable viewer
 ```bash
 less notes.txt
 ```
-Opens the file in a pager — doesn't dump everything at once. `less` is newer as more feature-rich than the older `more` command
+Opens the file in a pager so you can scroll through it. More feature-rich than the older `more` command.
 
 | Key | Action |
 |-----|--------|
@@ -183,34 +178,38 @@ Opens the file in a pager — doesn't dump everything at once. `less` is newer a
 | `b` | Page up |
 | `q` | Quit |
 | `/word` | Search for "word" |
-| `n` | Next Search result |
-| `N` | Previous Search result |
+| `n` | Next search result |
+| `N` | Previous search result |
+
+Best for long files like logs.
 
 ### `head` — first N lines
 ```bash
-head notes.txt           # first 10 lines (default)
-head -n 5 notes.txt      # first 5 lines
-head -n 3 file1.txt file2.txt   # shows each file with a header
+head notes.txt                         # first 10 lines (default)
+head -n 5 notes.txt                    # first 5 lines
+head -n 3 file1.txt file2.txt          # shows first 3 lines of each file with a header
 ```
 
 ### `tail` — last N lines
 ```bash
-tail notes.txt           # last 10 lines (default)
-tail -n 5 notes.txt      # last 5 lines
-tail -f notes.txt        # follow — live updates as file grows
-tail -f -n 20 app.log    # last 20 lines, then follow
-``` 
+tail notes.txt                         # last 10 lines (default)
+tail -n 5 notes.txt                    # last 5 lines
+tail -f notes.txt                      # follow — prints new lines as the file grows
+tail -f -n 20 app.log                  # last 20 lines, then follow
+```
 
 > `tail -f` is essential for watching log files in real time.
 
 ---
 
-## `file` - determine file type (bonus)
-Linux doesn't rely on extensions. Use file to identify what a file actually is:
+## `file` — determine file type
+
+Linux doesn't rely on extensions to know what a file is. Use `file` to identify what something actually contains:
 ```bash
-file unknown.bin          # tells you if it's ASCII text, binary, image, etc.
-file script.sh            # might show "Bourne-Again shell script"
-``` 
+file unknown.bin                       # tells you if it's ASCII text, binary, image, etc.
+file script.sh                         # might show "Bourne-Again shell script"
+```
+
 ---
 
 ## Quick reference
@@ -223,15 +222,15 @@ file script.sh            # might show "Bourne-Again shell script"
 | Create directory | `mkdir dir` |
 | Create nested directories | `mkdir -p a/b/c` |
 | Copy file | `cp src dest` |
-| Copy file (interactive) | `cp -i src dest` |
+| Copy file (safe) | `cp -i src dest` |
 | Copy directory | `cp -r src dest` |
 | Move / rename | `mv src dest` |
-| Move / rename (interactive) | `mv -i src dest` |
+| Move / rename (safe) | `mv -i src dest` |
 | Delete file | `rm file.txt` |
 | Delete directory | `rm -r dir` |
 | Force delete | `rm -rf dir` |
 | Delete empty directory | `rmdir dir` |
-| Delete all .log files | `rm *.log` |
+| Delete all `.log` files | `rm *.log` |
 | Match single character | `ls file-?.txt` |
 | Print file | `cat file.txt` |
 | Scroll through file | `less file.txt` |
@@ -246,8 +245,8 @@ file script.sh            # might show "Bourne-Again shell script"
 
 1. `>` wipes the whole file. `>>` adds to it. One character difference, huge consequence.
 2. `mv` has no copy — the original disappears. `cp` always leaves the source intact.
-3. `cp -i` and `mv -i` ask before overwriting — use them when unsure.
-4. `rm -rf` is irreversible. Use `rm -i` when unsure.
+3. `-i` on `cp`, `mv`, and `rm` asks before overwriting or deleting — use it when unsure.
+4. `rm -rf` is irreversible. No undo, no bin, no second chances.
 5. `rmdir` is your safety net — it refuses to delete anything non-empty.
 6. `cat` for short files, `less` for long ones, `tail -f` for live logs.
-7. `*` matches anything, `?` matches one character. Test with ls before destructive commands.
+7. `*` matches anything, `?` matches exactly one character. Always `ls` before a destructive wildcard command.
