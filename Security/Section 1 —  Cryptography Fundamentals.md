@@ -101,26 +101,26 @@ This is the breakthrough (Diffie–Hellman, RSA — 1970s) that solves the key e
 
 ```mermaid
 flowchart LR
-    subgraph Server[Server (Bob)]
-        Gen[Generate Key Pair]
-        PubKey[Public Key]
-        PrivKey[Private Key]
-        Decrypt[Decrypt RSA]
-        Plain1[Plaintext: "4111"]
+    subgraph Server["Server (Bob)"]
+        Gen["Generate Key Pair"]
+        PubKey["Public Key"]
+        PrivKey["Private Key"]
+        Decrypt["Decrypt RSA"]
+        Plain1["Plaintext: '4111'"]
     end
-
-    subgraph Alice[Alice (Customer)]
-        Encrypt[Encrypt RSA]
-        Plain2[Plaintext: "4111"]
-        Cipher[Ciphertext: "9f2a..."]
+    
+    subgraph Alice["Alice (Customer)"]
+        Encrypt["Encrypt RSA"]
+        Plain2["Plaintext: '4111'"]
+        Cipher["Ciphertext: '9f2a...'"]
     end
-
-    subgraph Network[Network]
-        PubKeySent[Public Key]
-        CipherSent[Ciphertext: "9f2a..."]
-        Eaves[Eavesdropper: Has public key + ciphertext ❌ Cannot decrypt]
+    
+    subgraph Network["Network"]
+        PubKeySent["Public Key"]
+        CipherSent["Ciphertext: '9f2a...'"]
+        Eaves["Eavesdropper: Has public key + ciphertext ❌ Cannot decrypt"]
     end
-
+    
     Gen --> PubKey
     Gen --> PrivKey
     PubKey --> PubKeySent
@@ -134,8 +134,9 @@ flowchart LR
     Cipher --> Decrypt
     PrivKey --> Decrypt
     Decrypt --> Plain1
-
-    style Eaves fill:#ffcccc,stroke:#cc0000
+    
+    classDef eavesdrop fill:#ffcccc,stroke:#cc0000
+    class Eaves eavesdrop
 ```
 
 **Worked scenario — Alice and the online store:**
