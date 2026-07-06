@@ -47,23 +47,23 @@ One key does both jobs — it encrypts and decrypts. Think of a physical padlock
 
 ```mermaid
 flowchart LR
-    subgraph Alice[Alice]
-        A[Plaintext: "4111"]
-        K1[Shared Key: K]
-        E[Encrypt AES]
+    subgraph Alice["Alice"]
+        A["Plaintext"]
+        K1["Shared Key"]
+        E["Encrypt AES"]
     end
-
-    subgraph Network[Network]
-        C[Ciphertext: "9f2a..."]
-        EV[Eavesdropper sees gibberish]
+    
+    subgraph Network["Network"]
+        C["Ciphertext"]
+        EV["Eavesdropper"]
     end
-
-    subgraph Bob[Bob]
-        D[Decrypt AES]
-        B[Plaintext: "4111"]
-        K2[Shared Key: K]
+    
+    subgraph Bob["Bob"]
+        D["Decrypt AES"]
+        B["Plaintext"]
+        K2["Shared Key"]
     end
-
+    
     A --> E
     K1 --> E
     E --> C
@@ -71,9 +71,6 @@ flowchart LR
     K2 --> D
     D --> B
     C -.-> EV
-
-    classDef eavesdrop fill:#ffcccc,stroke:#cc0000
-    class EV eavesdrop
 ```
 
 **Worked example:**
