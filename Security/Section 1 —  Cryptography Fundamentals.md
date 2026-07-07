@@ -409,3 +409,5 @@ This is how container image signing works — the publisher signs the image dige
 5. **Implementation mistakes are common** — avoid ECB mode, hardcoded keys, and IV reuse.
 6. **Forward secrecy** ensures past sessions stay secure even if the private key is stolen later.
 7. **The pattern repeats in DevOps** — SSH, KMS, container signing, mTLS, and secrets management all use these same primitives.
+
+**Next:** [Security — Section 2: Hashing & Password Security](Section 2 — Hashing & Password Security.md)
