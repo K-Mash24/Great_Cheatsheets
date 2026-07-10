@@ -1,11 +1,13 @@
 # Pillar 4 — Scripting & Automation
+
 ## Section 2: Python Functions, Modules & Error Handling
 
 ### Section Checklist
+
 - [x] Functions: definition, parameters, arguments, body
 - [x] return statement and implicit None returns
 - [x] Default parameters and keyword arguments
-- [x] *args and **kwargs
+- [x] \*args and \*\*kwargs
 - [x] Scope: local vs global
 - [x] Modules: import, from...import, aliasing, writing your own
 - [x] Common standard library modules (os, sys, datetime, json, subprocess, random)
@@ -19,7 +21,7 @@
 
 ### 2.1 Functions — why they exist
 
-A **function** is a named, reusable block of code that performs a specific task. Instead of copy-pasting the same logic repeatedly, you define it once and *call* it wherever needed.
+A **function** is a named, reusable block of code that performs a specific task. Instead of copy-pasting the same logic repeatedly, you define it once and _call_ it wherever needed.
 
 ```python
 def greet(name):
@@ -28,13 +30,16 @@ def greet(name):
 greet("Keith")
 greet("Codespace")
 ```
+
 Output:
+
 ```
 Hello, Keith
 Hello, Codespace
 ```
 
 Breaking this down:
+
 - `def` — keyword that begins a function definition
 - `greet` — the function's name (snake_case convention, same as variables)
 - `(name)` — a **parameter**: a placeholder for input the function needs to do its job
@@ -65,6 +70,7 @@ def check_positive(n):
 ```
 
 A function with no explicit `return` implicitly returns `None`:
+
 ```python
 def log_message(msg):
     print(msg)
@@ -72,6 +78,8 @@ def log_message(msg):
 output = log_message("test")
 print(output)   # None
 ```
+
+> **⚠️ Pitfall:** Forgetting that a function returns `None` can cause confusing downstream errors. If the caller expects a value, always add an explicit `return`.
 
 ---
 
@@ -88,7 +96,31 @@ greet("Keith", "Welcome back")     # Welcome back, Keith
 greet(name="Keith", greeting="Hi") # Hi, Keith — keyword arguments, order doesn't matter
 ```
 
-> **Pitfall:** Default parameters must come *after* non-default ones in the function signature. `def greet(greeting="Hello", name)` is a `SyntaxError`.
+> **⚠️ Pitfall:** Default parameters must come _after_ non-default ones in the function signature. `def greet(greeting="Hello", name)` is a `SyntaxError`.
+
+**Mutable default arguments (classic Python trap):**
+
+```python
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+print(add_item("a"))   # ['a']
+print(add_item("b"))   # ['a', 'b']  ← Unexpected! The same list persists across calls
+```
+
+**Fix:** Use `None` as default and create the mutable object inside the function:
+
+```python
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+
+print(add_item("a"))   # ['a']
+print(add_item("b"))   # ['b']  ← Correct! Fresh list each time
+```
 
 ---
 
@@ -97,6 +129,7 @@ greet(name="Keith", greeting="Hi") # Hi, Keith — keyword arguments, order does
 Sometimes you don't know in advance how many arguments a function needs to accept.
 
 **`*args`** — collects any number of extra positional arguments into a tuple:
+
 ```python
 def total(*args):
     return sum(args)
@@ -105,7 +138,8 @@ total(1, 2, 3)        # 6
 total(1, 2, 3, 4, 5)  # 15
 ```
 
-**`**kwargs`** — collects any number of extra keyword arguments into a dict:
+**`**kwargs`\*\* — collects any number of extra keyword arguments into a dict:
+
 ```python
 def describe(**kwargs):
     for key, value in kwargs.items():
@@ -113,7 +147,9 @@ def describe(**kwargs):
 
 describe(name="Keith", pillar=4, status="in progress")
 ```
+
 Output:
+
 ```
 name: Keith
 pillar: 4
@@ -148,7 +184,8 @@ def show_counter():
 show_counter()
 ```
 
-To *modify* a global variable from inside a function, it must be explicitly declared with `global`:
+To _modify_ a global variable from inside a function, it must be explicitly declared with `global`:
+
 ```python
 counter = 0
 
@@ -161,7 +198,22 @@ increment()
 print(counter)   # 2
 ```
 
-> **Callout — avoid overusing `global`.** Functions that silently mutate global state are hard to reason about and debug, especially as scripts grow. Prefer passing values in as arguments and returning results, reserving `global` for genuinely shared state (e.g., a running total across many calls in a small script).
+> **⚠️ Why `global` is dangerous:**
+>
+> ```python
+> # BAD — this function silently modifies a global variable
+> total = 0
+> def add_to_total(n):
+>     global total
+>     total += n
+>     # No indication to the caller that total changed
+>
+> # GOOD — explicit and predictable
+> def add(n, total):
+>     return total + n
+> ```
+>
+> **Rule:** Avoid `global` except for genuinely shared state in very small scripts. Prefer passing values as arguments and returning results.
 
 ---
 
@@ -170,6 +222,7 @@ print(counter)   # 2
 A **module** is simply a `.py` file containing Python code — functions, variables, classes — that can be imported and reused in other files.
 
 **Using a built-in module:**
+
 ```python
 import math
 
@@ -178,6 +231,7 @@ print(math.pi)           # 3.141592653589793
 ```
 
 **Importing specific names only:**
+
 ```python
 from math import sqrt, pi
 
@@ -186,6 +240,7 @@ print(pi)          # 3.141592653589793
 ```
 
 **Aliasing on import** (common convention for long module names):
+
 ```python
 import datetime as dt
 
@@ -196,12 +251,14 @@ print(now)
 **Writing your own module:**
 
 Create `helpers.py`:
+
 ```python
 def double(n):
     return n * 2
 ```
 
 In another file in the same directory:
+
 ```python
 import helpers
 
@@ -214,19 +271,36 @@ print(helpers.double(5))   # 10
 
 ### 2.7 Commonly used standard library modules
 
-| Module | Purpose | Example |
-|---|---|---|
-| `os` | Interact with the operating system | `os.getcwd()`, `os.listdir()` |
-| `sys` | Interact with the interpreter/runtime | `sys.argv` (command-line arguments) |
-| `datetime` | Dates and times | `datetime.datetime.now()` |
-| `json` | Parse/generate JSON (Section 8) | `json.loads()`, `json.dumps()` |
-| `subprocess` | Run shell commands from Python | `subprocess.run(["ls", "-l"])` |
-| `random` | Generate random values | `random.randint(1, 10)` |
+| Module       | Purpose                               | Example                             |
+| ------------ | ------------------------------------- | ----------------------------------- |
+| `os`         | Interact with the operating system    | `os.getcwd()`, `os.listdir()`       |
+| `sys`        | Interact with the interpreter/runtime | `sys.argv` (command-line arguments) |
+| `datetime`   | Dates and times                       | `datetime.datetime.now()`           |
+| `json`       | Parse/generate JSON (Section 8)       | `json.loads()`, `json.dumps()`      |
+| `subprocess` | Run shell commands from Python        | `subprocess.run(["ls", "-l"])`      |
+| `random`     | Generate random values                | `random.randint(1, 10)`             |
+
+**`sys.argv` — command-line arguments:**
 
 ```python
-import os
-print(os.getcwd())          # current working directory
-print(os.listdir("."))      # files in current directory
+import sys
+
+# script.py
+print(f"Script name: {sys.argv[0]}")
+print(f"Arguments: {sys.argv[1:]}")
+
+# python3 script.py arg1 arg2
+# Script name: script.py
+# Arguments: ['arg1', 'arg2']
+```
+
+**`subprocess` — running shell commands:**
+
+```python
+import subprocess
+
+result = subprocess.run(["ls", "-l"], capture_output=True, text=True)
+print(result.stdout)   # outputs the directory listing
 ```
 
 ---
@@ -246,6 +320,8 @@ ValueError: invalid literal for int() with base 10: 'abc'
 NameError: name 'undefined_variable' is not defined
 ```
 
+**Exception hierarchy:** Exceptions form a tree. `ZeroDivisionError` is a subclass of `ArithmeticError`, which is a subclass of `Exception`. This means catching `Exception` catches everything — which is convenient, but also dangerous (see pitfalls below).
+
 Left unhandled, an exception **crashes the script**. In automation, that's often unacceptable — a script processing 1,000 files shouldn't die entirely because file #47 was malformed.
 
 ---
@@ -258,13 +334,17 @@ try:
 except ZeroDivisionError:
     print("Cannot divide by zero")
 ```
+
 Output:
+
 ```
 Cannot divide by zero
 ```
+
 The program continues running after the `except` block — it does not crash.
 
 **Catching multiple exception types:**
+
 ```python
 def safe_divide(a, b):
     try:
@@ -279,12 +359,14 @@ safe_divide(10, "a")    # Error: invalid types for division
 ```
 
 **Catching any exception** (use sparingly — see pitfalls below):
+
 ```python
 try:
     risky_operation()
 except Exception as e:
     print(f"Something went wrong: {e}")
 ```
+
 `as e` binds the exception object to a variable so its message can be inspected.
 
 ---
@@ -301,13 +383,29 @@ else:
 finally:
     print("This always runs")      # runs no matter what — success or failure
 ```
+
 Output:
+
 ```
 Success: 5.0
 This always runs
 ```
 
 `finally` is commonly used for cleanup — closing a file, closing a network connection — that must happen whether or not an error occurred.
+
+**`finally` with file operations** (preview of Section 3):
+
+```python
+f = None
+try:
+    f = open("data.txt", "r")
+    content = f.read()
+except FileNotFoundError:
+    print("File not found")
+finally:
+    if f:
+        f.close()   # Always close the file, even if an error occurs
+```
 
 ---
 
@@ -330,13 +428,14 @@ This is how well-written functions protect against invalid input rather than sil
 
 ### Pitfalls Table
 
-| Pitfall | Why it's a problem | Fix |
-|---|---|---|
-| Bare `except:` with no exception type | Silently swallows *every* error, including ones you didn't anticipate (e.g., `KeyboardInterrupt`), making bugs invisible | Catch specific exception types; use `except Exception as e` at most, and log `e` |
-| Overusing `global` | Functions that mutate shared state become hard to trace and debug as scripts grow | Pass values as arguments, return results; reserve `global` for genuinely shared counters/state |
-| Default parameter comes before non-default | `SyntaxError` at definition time | Order non-default parameters first, defaults after |
-| Forgetting a function has an implicit `None` return | Assigning the result of a function with no `return` gives `None`, causing confusing downstream errors | Always add an explicit `return` if the caller needs a value |
-| Mutable default arguments (e.g., `def f(items=[])`) | The same list object is reused across all calls, causing unexpected shared state | Use `None` as default, then create the mutable object inside the function body |
+| Pitfall                                             | Why it's a problem                                                                                                       | Fix                                                                                            |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| Bare `except:` with no exception type               | Silently swallows _every_ error, including ones you didn't anticipate (e.g., `KeyboardInterrupt`), making bugs invisible | Catch specific exception types; use `except Exception as e` at most, and log `e`               |
+| Overusing `global`                                  | Functions that mutate shared state become hard to trace and debug as scripts grow                                        | Pass values as arguments, return results; reserve `global` for genuinely shared counters/state |
+| Default parameter comes before non-default          | `SyntaxError` at definition time                                                                                         | Order non-default parameters first, defaults after                                             |
+| Mutable default arguments (`def f(items=[])`)       | The same list object is reused across all calls, causing unexpected shared state                                         | Use `None` as default, then create the mutable object inside the function body                 |
+| Forgetting a function has an implicit `None` return | Assigning the result of a function with no `return` gives `None`, causing confusing downstream errors                    | Always add an explicit `return` if the caller needs a value                                    |
+| Catching `Exception` without logging                | Errors become invisible, making debugging impossible                                                                     | Log the exception with `print(e)` or use a proper logging library                              |
 
 ---
 
@@ -348,15 +447,26 @@ In `/workspaces/DevOps-Journey`:
 nano practice2.py
 ```
 
+**Part 1:**
+
 1. Define a function `divide(a, b)` that returns `a / b`, using `try/except` to catch `ZeroDivisionError` and print a friendly message instead of crashing
 2. Define a function `pillar_status(**kwargs)` that prints each keyword argument passed in (e.g., call it with `name="scripting", section=2, status="in progress"`)
 3. Import the `os` module and print the current working directory
+
+**Part 2:**
+
+4. Write a function `validate_username(username)` that:
+   - Raises `ValueError("Username must be at least 3 characters")` if too short
+   - Raises `ValueError("Username must be alphanumeric")` if it contains spaces or special characters
+   - Returns `True` if valid
+5. Test it with `validate_username("a")`, `validate_username("user name")`, and `validate_username("valid_user")`
 
 Run: `python3 practice2.py`
 
 ---
 
 ### DevOps Connection
+
 Error handling is the difference between a script that fails loudly and stops an entire pipeline, versus one that logs the problem, skips the bad input, and keeps going. CI/CD pipelines (Phase 2) live or die on scripts handling unexpected input predictably — a deployment script that crashes on one malformed config file instead of catching and reporting the issue can take down an entire release process.
 
 ---
