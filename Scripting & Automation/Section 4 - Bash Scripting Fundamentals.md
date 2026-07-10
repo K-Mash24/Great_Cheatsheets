@@ -5,13 +5,14 @@
 ### Section Checklist
 
 - [x] What Bash is and why script it
-- [x] The shebang line (#!/bin/bash)
+- [x] The shebang line (#!/bin/bash vs #!/usr/bin/env bash)
 - [x] Creating, making executable, and running a script
 - [x] Variables and command substitution
 - [x] Reading user input with read
 - [x] Conditionals: if/elif/else/fi, test operators
 - [x] Numeric vs string comparison, file test operators
-- [x] Loops: for (list, range, glob pattern), while
+- [x] [ ] vs [[]] — which to use
+- [x] Loops: for (list, range, glob pattern, command output), while
 - [x] Functions: positional parameters, exit status vs returning data
 - [x] Hands-on exercise
 
@@ -34,6 +35,14 @@ Every Bash script starts with a **shebang** — a special first line telling the
 ```
 
 `#` normally starts a comment in Bash, but `#!` at the very start of a file is special-cased by the OS — it means "run this file using the program at this path." `/bin/bash` is the standard location of the Bash interpreter on virtually all Linux systems.
+
+**Alternative (more portable):**
+
+```bash
+#!/usr/bin/env bash
+```
+
+This uses `env` to find `bash` in the user's `PATH`, which is more portable across systems where Bash might be installed in a non-standard location (e.g., `/usr/local/bin/bash` on some BSD/macOS systems). This is the recommended shebang for scripts intended to run on multiple platforms.
 
 Without a shebang, running the script directly (`./script.sh`) may use the wrong interpreter or fail — always include it as line 1.
 
@@ -120,6 +129,15 @@ echo "Hello, $name"
 
 Running this pauses at `read name`, waits for terminal input, then continues.
 
+**Inline prompt** (cleaner):
+
+```bash
+read -p "What's your name? " name
+echo "Hello, $name"
+```
+
+The `-p` flag displays the prompt before reading input, eliminating the separate `echo` line.
+
 ---
 
 ### 4.6 Comparison and conditionals — `if`/`then`/`else`
@@ -173,7 +191,36 @@ fi
 
 > **Pitfall:** Always quote variables inside `[ ]` (`"$name"`, not `$name`). An empty or unset variable without quotes can break the test's syntax entirely (`[ == "Keith" ]` is invalid — missing an operand).
 
-**Checking file conditions:**
+---
+
+### 4.7 `[ ]` vs `[[ ]]` — which to use
+
+Bash provides two test syntaxes:
+
+| Syntax  | Used in          | Pros                                       | Cons                                  |
+| ------- | ---------------- | ------------------------------------------ | ------------------------------------- | ----------------------- | ---------------------------------------- |
+| `[ ]`   | All POSIX shells | Portable (works in `sh`)                   | Requires quoting, no regex, no `&&`/` |                         | ` inside                                 |
+| `[[ ]]` | Bash only        | Safer (no word splitting), supports `&&`/` |                                       | `, regex, glob patterns | Not POSIX-compliant (won't work in `sh`) |
+
+**Example:**
+
+```bash
+# [ ] — safe but requires quoting
+if [ "$name" == "Keith" ] && [ "$age" -gt 18 ]; then
+    echo "Adult Keith"
+fi
+
+# [[ ]] — cleaner and safer
+if [[ $name == "Keith" && $age -gt 18 ]]; then
+    echo "Adult Keith"
+fi
+```
+
+> **Recommendation:** Use `[[ ]]` for Bash scripts (safer and more readable). Use `[ ]` only if the script needs to run with `sh` (which is rare for DevOps automation — most CI/CD runners use Bash).
+
+---
+
+### 4.8 Checking file conditions
 
 ```bash
 if [ -f "notes.txt" ]; then
@@ -189,7 +236,7 @@ fi
 
 ---
 
-### 4.7 Loops
+### 4.9 Loops
 
 **`for` loop over a list:**
 
@@ -218,7 +265,7 @@ done
 
 Output: `Number: 1` through `Number: 5`.
 
-**`for` loop over files matching a pattern:**
+**`for` loop over files matching a pattern (glob):**
 
 ```bash
 for file in *.md; do
@@ -227,6 +274,16 @@ done
 ```
 
 Loops over every `.md` file in the current directory — a pattern used constantly for batch-processing files.
+
+**`for` loop over command output:**
+
+```bash
+for file in $(ls *.txt); do
+    echo "Processing $file"
+done
+```
+
+> **Pitfall:** Command substitution with `$(ls *.txt)` can break if filenames contain spaces — safer to use `for file in *.txt` directly (no `ls` needed) or use `find -print0` for edge cases.
 
 **`while` loop:**
 
@@ -250,7 +307,7 @@ Count is 3
 
 ---
 
-### 4.8 Functions in Bash
+### 4.10 Functions in Bash
 
 ```bash
 #!/bin/bash
@@ -292,6 +349,7 @@ echo "Result: $result"    # Result: 8
 | Not quoting variables inside `[ ]`               | Empty/unset variables can break the test's syntax entirely                 | Always quote: `[ "$name" == "Keith" ]`                            |
 | Expecting `return` to hand back data like Python | `return` only sets a 0–255 exit status code                                | `echo` the value and capture it with `$(function_name)`           |
 | Forgetting `chmod +x` before `./script.sh`       | `Permission denied` error                                                  | Run `chmod +x script.sh`, or invoke with `bash script.sh` instead |
+| Using `$()` around `ls` for filename loops       | Breaks on filenames with spaces                                            | Use `for file in *.txt` directly (no `ls`)                        |
 
 ---
 
@@ -308,6 +366,7 @@ chmod +x practice.sh
 2. Use a `for` loop to print each `.md` file in `saa-foundation/04-scripting/`
 3. Include an `if` statement checking whether a file called `README.md` exists in the current directory, printing a message either way
 4. Define a function `add()` that takes two arguments and echoes their sum, then call it and capture the result in a variable
+5. Use `read -p` to ask the user for their name and print a greeting
 
 Run: `./practice.sh`
 
