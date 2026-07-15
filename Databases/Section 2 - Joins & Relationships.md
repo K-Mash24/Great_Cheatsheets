@@ -16,7 +16,7 @@
 
 ---
 
-## 2.1 Why Split Data into Multiple Tables?
+### 2.1 Why Split Data into Multiple Tables?
 
 A single flat table repeats data unnecessarily:
 
@@ -29,12 +29,14 @@ A single flat table repeats data unnecessarily:
 
 "Keith" and his email repeat on every order — this is **redundancy**. Problems it causes:
 
-- Update anomalies: changing Keith's email means updating every row; miss one and data becomes inconsistent.
-- Wasted storage.
+- **Update anomalies:** changing Keith's email means updating every row; miss one and data becomes inconsistent.
+- **Wasted storage.**
 
-Fix: split into separate tables and **link them** using keys.
+**Fix:** split into separate tables and **link them** using keys.
 
-## 2.2 Foreign Keys
+---
+
+### 2.2 Foreign Keys
 
 A **foreign key (FK)** is a column in one table that references the primary key of another table — representing "this row relates to that row" without duplicating data.
 
@@ -77,7 +79,9 @@ erDiagram
 > **⚠️ Callout — Referential integrity**
 > A foreign key constraint prevents "orphaned" data: you cannot insert an order referencing a `customer_id` that doesn't exist in `customers`. The database rejects such inserts automatically (when enforcement is enabled — see SQLite gotcha below).
 
-## 2.3 Relationship Types
+---
+
+### 2.3 Relationship Types
 
 | Type         | Meaning                                      | Example                      |
 | ------------ | -------------------------------------------- | ---------------------------- |
@@ -107,7 +111,9 @@ erDiagram
 
 `enrollments` holds two foreign keys — one to `students`, one to `courses`. Each row means "this student is enrolled in this course."
 
-## 2.4 The JOIN — Combining Tables in a Query
+---
+
+### 2.4 The JOIN — Combining Tables in a Query
 
 A `JOIN` queries across tables as if they were one, matching foreign keys to primary keys.
 
@@ -124,6 +130,17 @@ Result:
 | Keith | Laptop  | 900   |
 | Keith | Mouse   | 20    |
 
+**Joining multiple tables** — you can chain joins:
+
+```sql
+SELECT customers.name, orders.product, order_items.quantity
+FROM customers
+JOIN orders ON customers.customer_id = orders.customer_id
+JOIN order_items ON orders.order_id = order_items.order_id;
+```
+
+---
+
 ### 2.4.1 Types of Joins
 
 | Join type                 | Returns                                                                      |
@@ -132,6 +149,24 @@ Result:
 | `LEFT JOIN`               | All rows from the left table, plus matches from the right (unmatched = NULL) |
 | `RIGHT JOIN`              | All rows from the right table, plus matches from the left (unmatched = NULL) |
 | `FULL OUTER JOIN`         | All rows from both tables, matched where possible                            |
+
+**Concrete example — difference between `INNER` and `LEFT`:**
+
+If a customer has zero orders:
+- `INNER JOIN` omits them entirely.
+- `LEFT JOIN` still shows the customer, with `NULL` in the order columns:
+
+```sql
+SELECT customers.name, orders.product
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+| name  | product |
+| ----- | ------- |
+| Keith | Laptop  |
+| Keith | Mouse   |
+| Amara | NULL    |
 
 ```mermaid
 graph LR
@@ -146,29 +181,26 @@ graph LR
     end
 ```
 
-If a customer has zero orders, `INNER JOIN` omits them entirely. `LEFT JOIN` still shows the customer, with `NULL` in the order columns:
-
-```sql
-SELECT customers.name, orders.product
-FROM customers
-LEFT JOIN orders ON customers.customer_id = orders.customer_id;
-```
-
-| name  | product |
-| ----- | ------- |
-| Keith | Laptop  |
-| Keith | Mouse   |
-| Amara | NULL    |
-
 > **⚠️ Callout — SQLite and RIGHT/FULL JOIN**
-> Older SQLite versions don't support `RIGHT JOIN` or `FULL OUTER JOIN` consistently. Workaround: a `RIGHT JOIN` from A to B is equivalent to a `LEFT JOIN` from B to A — flip the table order.
+> Older SQLite versions don't support `RIGHT JOIN` or `FULL OUTER JOIN` consistently.
+>
+> **Workaround:** A `RIGHT JOIN` from A to B is equivalent to a `LEFT JOIN` from B to A — flip the table order.
+>
+> ```sql
+> -- Instead of:
+> SELECT * FROM A RIGHT JOIN B ON A.id = B.id;
+> -- Use:
+> SELECT * FROM B LEFT JOIN A ON A.id = B.id;
+> ```
 
-## 2.5 Hands-On Practice
+---
+
+### 2.5 Hands-On Practice
 
 ```bash
 sqlite3 practice.db
 ```
-
+---
 ```sql
 CREATE TABLE orders (
     order_id INTEGER PRIMARY KEY,
@@ -182,16 +214,17 @@ INSERT INTO orders (order_id, customer_id, product, price) VALUES (1, 1, 'Laptop
 INSERT INTO orders (order_id, customer_id, product, price) VALUES (2, 1, 'Mouse', 20);
 ```
 
-### Progressive Exercises
+#### Progressive Exercises
 
 1. Write an `INNER JOIN` to list every order alongside the customer's name.
 2. Write a `LEFT JOIN` from `customers` to `orders` so every customer shows, even those with no orders.
 3. Try inserting an order with `customer_id = 999` (a customer that doesn't exist) — what happens?
 4. Add a `WHERE` clause to your join query to show only orders over $50.
-5. Design your own many-to-many junction table (e.g., books and authors).
+5. **Combine clauses:** Show all customers and their orders over $50, ordered by customer name.
+6. Design your own many-to-many junction table (e.g., books and authors).
 
 <details>
-<summary>Answers</summary>
+<summary>Click to show answers</summary>
 
 ```sql
 -- 1
@@ -214,7 +247,14 @@ FROM customers
 JOIN orders ON customers.customer_id = orders.customer_id
 WHERE orders.price > 50;
 
--- 5 — example: books and authors (many-to-many)
+-- 5
+SELECT customers.name, orders.product, orders.price
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id
+WHERE orders.price > 50 OR orders.price IS NULL
+ORDER BY customers.name;
+
+-- 6 — example: books and authors (many-to-many)
 CREATE TABLE authors (author_id INTEGER PRIMARY KEY, name TEXT);
 CREATE TABLE books (book_id INTEGER PRIMARY KEY, title TEXT);
 CREATE TABLE book_authors (
@@ -229,10 +269,14 @@ CREATE TABLE book_authors (
 
 > **⚠️ Practical gotcha:** SQLite does **not** enforce foreign keys by default. Run `PRAGMA foreign_keys = ON;` at the start of each session, or constraint violations will silently succeed instead of erroring.
 
-## 2.6 DevOps Connection
+---
+
+### 2.6 DevOps Connection
 
 Most production bugs around "duplicate data" or "orphaned records" trace back to missing or misunderstood foreign key relationships. This mirrors how infrastructure-as-code tools (Terraform/Ansible) model relationships — e.g., a server referencing a security group by ID rather than duplicating its rules — the same "reference by key, not by copy" principle.
 
 ---
 
 **Next section:** Section 3 — Normalization
+
+
